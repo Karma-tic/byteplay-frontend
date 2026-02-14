@@ -1,38 +1,82 @@
+import { Routes, Route, Link } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import ToolCard from "./components/ToolCard";
+import PanCheck from "./pages/PanCheck";
+import { FileText, Image, CreditCard, ShieldCheck } from "lucide-react";
+import { motion } from "framer-motion";
+
 function App() {
   return (
-    <div className="min-h-screen bg-white text-gray-800">
-      <header className="border-b">
-        <div className="max-w-5xl mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold text-blue-600">
-            BytePlay
-          </h1>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 text-gray-800">
+
+      <Navbar />
 
       <main className="max-w-5xl mx-auto px-4 py-12">
-        <h2 className="text-3xl font-semibold mb-4">
-          Smart Online Utility Tools for India
-        </h2>
+       
 
-        <p className="text-gray-600 mb-8">
-          Convert PDFs, resize images, validate formats, and create invoices —
-          fast, free, and private.
-        </p>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+  className="text-center mb-16"
+>
+  <h2 className="text-4xl sm:text-5xl font-extrabold mb-6 bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+    Smart Online Utility Tools for India
+  </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="border rounded-lg p-6">
-            📄 PDF Tools
-          </div>
-          <div className="border rounded-lg p-6">
-            🖼️ Image Tools
-          </div>
-          <div className="border rounded-lg p-6">
-            🧾 Business Tools
-          </div>
-          <div className="border rounded-lg p-6">
-            ✍️ Text Tools
-          </div>
-        </div>
+  <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-8">
+    Convert PDFs, resize images, validate government formats, and create invoices —
+    fast, free, and privacy-friendly.
+  </p>
+
+  <Link
+    to="/pan-check"
+    className="inline-block px-8 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+  >
+    Try PAN Checker →
+  </Link>
+</motion.div>
+
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <Link to="/pan-check">
+  <ToolCard
+    icon={ShieldCheck}
+    title="PAN Format Checker"
+    color="bg-gradient-to-br from-emerald-500 to-green-600"
+  />
+</Link>
+
+<ToolCard
+  icon={FileText}
+  title="PDF Tools (Coming Soon)"
+  color="bg-gradient-to-br from-indigo-500 to-purple-600"
+/>
+
+<ToolCard
+  icon={Image}
+  title="Image Tools (Coming Soon)"
+  color="bg-gradient-to-br from-pink-500 to-rose-500"
+/>
+
+<ToolCard
+  icon={CreditCard}
+  title="Invoice Tools (Coming Soon)"
+  color="bg-gradient-to-br from-amber-500 to-orange-500"
+/>
+
+                </div>
+              </>
+            }
+          />
+
+          <Route path="/pan-check" element={<PanCheck />} />
+        </Routes>
       </main>
 
       <footer className="border-t mt-16">
