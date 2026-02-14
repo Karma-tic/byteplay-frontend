@@ -5,6 +5,8 @@ import PanCheck from "./pages/PanCheck";
 import { FileText, Image, CreditCard, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import ImageCompress from "./pages/ImageCompress";
+import PassportPhoto from "./pages/PassportPhoto";
+
 
 
 function App() {
@@ -76,6 +78,14 @@ function App() {
     color="bg-gradient-to-br from-pink-500 to-rose-500"
   />
 </Link>
+<Link to="/passport-photo">
+  <ToolCard
+    icon={Image}
+    title="Passport Size Photo Maker"
+    color="bg-gradient-to-br from-sky-500 to-indigo-600"
+  />
+</Link>
+
 
 
 <ToolCard
@@ -91,6 +101,8 @@ function App() {
 
           <Route path="/pan-check" element={<PanCheck />} />
           <Route path="/image-compress" element={<ImageCompress />} />
+          <Route path="/passport-photo" element={<PassportPhoto />} />
+
 
         </Routes>
       </main>
