@@ -4,6 +4,8 @@ import ToolCard from "./components/ToolCard";
 import PanCheck from "./pages/PanCheck";
 import { FileText, Image, CreditCard, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
+import ImageCompress from "./pages/ImageCompress";
+
 
 function App() {
   return (
@@ -25,9 +27,18 @@ function App() {
   transition={{ duration: 0.6 }}
   className="text-center mb-16"
 >
-  <h2 className="text-4xl sm:text-5xl font-extrabold mb-6 bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-    Smart Online Utility Tools for India
-  </h2>
+ <h2
+  className="font-brand text-4xl sm:text-6xl font-extrabold mb-8
+           tracking-tight leading-tight
+           text-slate-900
+           drop-shadow-[0_2px_0_rgba(255,255,255,0.6)]
+           drop-shadow-[0_8px_24px_rgba(0,0,0,0.18)]"
+
+>
+  Smart Online Utility Tools for India
+</h2>
+
+
 
   <p className="text-gray-600 text-lg max-w-2xl mx-auto mb-8">
     Convert PDFs, resize images, validate government formats, and create invoices —
@@ -58,11 +69,14 @@ function App() {
   color="bg-gradient-to-br from-indigo-500 to-purple-600"
 />
 
-<ToolCard
-  icon={Image}
-  title="Image Tools (Coming Soon)"
-  color="bg-gradient-to-br from-pink-500 to-rose-500"
-/>
+<Link to="/image-compress">
+  <ToolCard
+    icon={Image}
+    title="Image Compressor"
+    color="bg-gradient-to-br from-pink-500 to-rose-500"
+  />
+</Link>
+
 
 <ToolCard
   icon={CreditCard}
@@ -76,6 +90,8 @@ function App() {
           />
 
           <Route path="/pan-check" element={<PanCheck />} />
+          <Route path="/image-compress" element={<ImageCompress />} />
+
         </Routes>
       </main>
 
