@@ -9,6 +9,16 @@ export const config = {
 };
 
 export default async function handler(req, res) {
+  // ✅ CORS HEADERS
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // ✅ Handle preflight
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -46,7 +56,6 @@ No filters, selfies, or casual backgrounds
 Final image must pass government, academic, and corporate verification checks
 `;
 
-    // 🔥 IMAGEN IMAGE GENERATION
     const imagenRes = await fetch(
       "https://generativelanguage.googleapis.com/v1/images:generate?key=" +
         process.env.GEMINI_API_KEY,
@@ -70,6 +79,7 @@ Final image must pass government, academic, and corporate verification checks
     const imagenData = await imagenRes.json();
 
     if (!imagenData.images || !imagenData.images[0]) {
+      console.error(imagenData);
       throw new Error("No image returned from Imagen API");
     }
 
