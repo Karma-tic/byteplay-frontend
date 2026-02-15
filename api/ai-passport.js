@@ -9,28 +9,18 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-  // ✅ ALWAYS SET CORS FIRST
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-  // ✅ PRE-FLIGHT MUST EXIT IMMEDIATELY
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-
   if (req.method !== "POST") {
-    return res.status(405).end();
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const form = formidable({ multiples: false });
+  const form = formidable();
 
   try {
     const [fields, files] = await form.parse(req);
     const imageFile = files.image?.[0];
 
     if (!imageFile) {
-      return res.status(400).end();
+      return res.status(400).json({ error: "No image uploaded" });
     }
 
     const imageBuffer = fs.readFileSync(imageFile.filepath);
@@ -56,15 +46,18 @@ No filters, selfies, or casual backgrounds
 Final image must pass government, academic, and corporate verification checks
 `;
 
+    // 🔥 IMAGEN IMAGE GENERATION
     const imagenRes = await fetch(
       "https://generativelanguage.googleapis.com/v1/images:generate?key=" +
         process.env.GEMINI_API_KEY,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           model: "imagen-3.0-generate-002",
-          prompt,
+          prompt: prompt,
           image: {
             mimeType: "image/jpeg",
             data: base64Image,
@@ -76,9 +69,8 @@ Final image must pass government, academic, and corporate verification checks
 
     const imagenData = await imagenRes.json();
 
-    if (!imagenData?.images?.[0]?.image) {
-      console.error("Imagen error:", imagenData);
-      return res.status(500).end();
+    if (!imagenData.images || !imagenData.images[0]) {
+      throw new Error("No image returned from Imagen API");
     }
 
     const outputImage = Buffer.from(
@@ -87,9 +79,9 @@ Final image must pass government, academic, and corporate verification checks
     );
 
     res.setHeader("Content-Type", "image/jpeg");
-    return res.status(200).send(outputImage);
+    res.status(200).send(outputImage);
   } catch (err) {
     console.error("AI passport error:", err);
-    return res.status(500).end();
+    res.status(500).json({ error: "AI processing failed" });
   }
 }
