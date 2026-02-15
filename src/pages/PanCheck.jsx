@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import { motion } from "framer-motion";
 
 
 function PanCheck() {
+      useEffect(() => {
+    document.title = "PAN Format Checker Online – Validate PAN Number | BytePlay";
+  }, []);
+
   const [pan, setPan] = useState("");
   const [result, setResult] = useState(null);
 
@@ -64,6 +69,21 @@ function PanCheck() {
           )}
 
         </div>
+<div className="mt-8 text-sm text-gray-600 leading-relaxed">
+  <h3 className="font-semibold text-gray-800 mb-2">
+    What is a PAN Number?
+  </h3>
+  <p>
+    A Permanent Account Number (PAN) is a 10-character alphanumeric identifier
+    issued by the Income Tax Department of India. It is required for filing
+    income tax returns, opening bank accounts, and most financial transactions.
+  </p>
+
+  <p className="mt-2">
+    This tool helps you verify whether a PAN number follows the correct format
+    before using it in official forms.
+  </p>
+</div>
 
         <p className="text-xs text-gray-400 mt-6 text-center">
           🔒 We do not store or send your data anywhere.

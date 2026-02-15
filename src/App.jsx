@@ -1,4 +1,6 @@
 import { Routes, Route, Link } from "react-router-dom";
+import { useEffect } from "react";
+
 import Navbar from "./components/Navbar";
 import ToolCard from "./components/ToolCard";
 import PanCheck from "./pages/PanCheck";
@@ -10,6 +12,10 @@ import PassportPhoto from "./pages/PassportPhoto";
 
 
 function App() {
+  useEffect(() => {
+  document.title = "BytePlay – Smart Online Utility Tools for India";
+}, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 text-gray-800">
 
@@ -37,7 +43,7 @@ function App() {
            drop-shadow-[0_8px_24px_rgba(0,0,0,0.18)]"
 
 >
-  Smart Online Utility Tools for India
+  Smart Online Utility Tools
 </h2>
 
 

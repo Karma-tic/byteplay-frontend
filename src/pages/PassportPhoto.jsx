@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import { motion } from "framer-motion";
 
 function PassportPhoto() {
+  useEffect(() => {
+    document.title = "Passport Size Photo Maker for Government Forms | BytePlay";
+  }, []);
+
   const [preview, setPreview] = useState(null);
   const [downloadUrl, setDownloadUrl] = useState(null);
 
@@ -90,6 +95,20 @@ function PassportPhoto() {
             Download Passport Photo
           </a>
         )}
+<div className="mt-8 text-sm text-gray-600 leading-relaxed">
+  <h3 className="font-semibold text-gray-800 mb-2">
+    Passport Size Photo for Indian Forms
+  </h3>
+  <p>
+    Passport size photos are required for Aadhaar updates, PAN applications,
+    job forms, and government exams. This tool automatically resizes your photo
+    to the standard passport size used in India.
+  </p>
+
+  <p className="mt-2">
+    No software installation is required and your photo stays on your device.
+  </p>
+</div>
 
         <p className="text-xs text-gray-400 mt-6 text-center">
           🔒 Photo is processed locally in your browser.
